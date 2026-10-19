@@ -1,0 +1,70 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'D1Q5.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{<path to file>/}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{ %
+    \errmessage{ ( Inkscape ) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded } %
+    \renewcommand\color[2][ ]{ }%
+  }%
+  \providecommand\transparent[1]{ %
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{} %
+  } %
+  \providecommand\rotatebox[2]{{"{"}}#2{{"}"}} %
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{{"{"}}#1\fsize}\selectfont{{"}"}}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{115.6576502bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.34857176)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{D1Q5.pdf}}%
+    \put(2.17197161,-0.98391449){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.29760856\unitlength}\raggedright \end{minipage}}}%
+    \put(0.43303728,0.01897607){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
+    \put(0.59728553,0.01502351){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$1$\end{tabular}}}}%
+    \put(0.78487727,0.01270757){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$2$\end{tabular}}}}%
+    \put(0.20125833,0.02428729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-1$\end{tabular}}}}%
+    \put(-0.00717703,0.0196554){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$-2$\end{tabular}}}}%
+    \put(0.40895141,0.33487141){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.67625695\unitlength}\raggedright $\gls{parti_spe}_0$\end{minipage}}}%
+    \put(0.06750106,0.33487141){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.57203919\unitlength}\raggedright $\gls{parti_spe}_4$\end{minipage}}}%
+    \put(0.27593629,0.29596348){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.60214659\unitlength}\raggedright $\gls{parti_spe}_2$\end{minipage}}}%
+    \put(0.61406468,0.29596348){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.63920172\unitlength}\raggedright $\gls{parti_spe}_1$\end{minipage}}}%
+    \put(0.80582524,0.33487141){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.61372637\unitlength}\raggedright $\gls{parti_spe}_3$\end{minipage}}}%
+    \put(0.99225119,0.2524384){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1505366\unitlength}\centering \end{minipage}}}%
+  \end{picture}%
+\endgroup%

@@ -1,0 +1,61 @@
+\documentclass[12pt]{standalone}
+\usepackage[T1]{fontenc}
+
+%\providecommand{\langue}{french}	% english, french
+\providecommand{\PathR}{../../resources}  % Path to Supplies and Ressources folders
+\providecommand{\PathS}{./../}
+%\providecommand{\BuildTrigger}{buildnew} % Trigger to build or not
+
+\makeatletter							% to be able to find package in ressource folders.
+	\def\input@path{{\PathR}}
+	\ifx\c@levelstanda\undefined 	% to create a newcounter if it doesnt exists.
+		\newcounter{levelstanda}
+	\else
+		{}% it already exist
+	\fi
+\makeatother
+
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{tikz}					    %
+\usepackage{pgfplots}				    %
+	\pgfplotsset{compat=newest}		    %
+\newcommand{\famName}[1]{\textsc{#1}}
+\input{\PathR/UsersMathsCommands.tex}
+% \usepackage[abbreviations, automake]{glossaries-extra}
+% 	\newglossary*{symbol}{Nomenclature}
+% 	\makeglossaries
+% 	\setabbreviationstyle{short-sc-postfootnote}
+%     % \input{\PathR/UsersSymbolsAcronyms.tex}
+\providecommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms}%.bib
+\usepackage[record, automake]{glossaries-extra}
+	\newglossary*{acronym}{Abbreviations}
+	\newglossary*{symbol}{Nomenclature}
+	% new keys must be defined before \GlsXtrLoadResources
+	\glsaddstoragekey{unit}{}{\glsentryunit}
+	% define style of the abbreviation in the text
+	\setabbreviationstyle[acronym]{long-short}
+	\setabbreviationstyle[foreignabbreviation]{long-short-user}
+	\GlsXtrLoadResources[
+		src={\PathSymbolsEntries}, % entries in symbols.bib
+		entry-type-aliases={foreignabbreviation=abbreviation},
+		type=symbol,
+		match={entrytype=symbol},
+		symbol-sort-fallback=name,% sort @symbol entries by name field
+		identical-sort-action=description,% sort by description if sort value identical
+	]
+
+
+%\def\svgwidth{0.99\linewidth}% to specify the size of the figure
+
+\begin{document}
+\stepcounter{levelstanda}
+%\renewcommand{\arraystretch}{0}
+%\begin{tabular}{@{}p{0.98\linewidth}@{}}%{|@{}p{\linewidth}@{}|} % \@{} is to remove the margin of the cells
+	\centering
+	%
+	%\fontsize{5}{6}\selectfont % have smaller font
+	\import{\PathS/example}{D1Q5.pdf_tex} 		% if the file is
+%\end{tabular}
+\addtocounter{levelstanda}{-1}
+\end{document}

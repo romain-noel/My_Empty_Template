@@ -1,0 +1,90 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% If you want to use arara, you need the following directives:          %
+% In the preamble:                                                      %
+% arara: pdflatex: { synctex: yes, shell: yes, interaction: batchmode }
+% arara: pdflatex: { synctex: yes, shell: yes, interaction: batchmode }
+% arara: bibtex
+% arara: pdflatex: { synctex: yes, shell: yes, interaction: batchmode }
+% arara: clean: { extensions: [ aux, bbl, bcf, blg, glg, glstex, lof, log, ptc, run.xml, thm, toc ] }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% !TeX encoding = UTF-8
+% !TeX spellcheck = eng_GB
+
+%%%% ---- LaTeX File ---- %%%%
+\providecommand{\PathP}{parts} % Path to Parts folders
+\providecommand{\PathR}{resources} % Path to Resources folders
+\providecommand{\PathSO}{./sources/} % Path to Sources folders
+\providecommand{\PathS}{supplies} % Path to Supplies folders
+\providecommand{\lang}{english}	% english, french
+\providecommand{\BuildTrigger}{build} % Trigger to build or not standalone parts.
+
+\makeatletter
+	\ifx\c@levelstanda\undefined 	% to create a newcounter if it doesn't exists.
+		\newcounter{levelstanda}
+		\def\input@path{ {\PathSO}{./another-directory/} } % to be able to find package in source folders.
+	\else
+		{}% it already exist
+	\fi
+\makeatother
+
+
+%%%%---- DOCUMENT-CLASS -------------------------%%%%
+\documentclass[a4paper]{article}  % or another class
+	\usepackage[l2tabu, orthodox]{nag}	% Helps to correct the script
+
+%%%%---- OS & FONT -------------------------%%%%
+	\usepackage[utf8]{inputenc} % Input keyboard encoding: latin1=windows, utf8=linux, applemac=Mac
+	\usepackage[T1]{fontenc} 	% Output font encoding: T1 for Europeans languages.
+
+%%%%---- PERSONAL Custom ----------------------%%%%
+	\newcommand{\Pathbasebib}{\PathR/ref_RN.bib,\PathR/ref_XX.bib}% Careful no space!
+	\newcommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms.bib}
+	\input{\PathR/UsersPackagesDefs.tex}
+	\input{\PathR/UsersMathsCommands.tex}
+		\geometry{margin=2.5cm}
+
+%%%%%---- JOURNAL SPECS -------------------------%%%%
+	%\journal{Journal of XX}
+	\title{ {{cookiecutter.titleName}} }
+	\author{ {{cookiecutter.firstName}} \famName{ {{cookiecutter.familyName}} }, Romain \famName{Noël} }
+	\date{\today}
+
+
+%%%%%%%%%%%%%%%  MAIN DOCUMENT  %%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\stepcounter{levelstanda}
+
+%% FRONT-MATTER
+\maketitle
+
+	\begin{abstract}
+		This is your abstract from \texttt{main.tex} file.
+	\end{abstract}
+
+
+%% MAIN-MATTER
+%\input{\PathP/avancement.tex}
+%\input{\PathP/logbook.tex}
+\input{\PathP/example.tex}
+\input{\PathP/new_part.tex}
+
+
+%% BACK-MATTER
+%\appendix
+\ifnum\value{levelstanda}>1
+	{}% Not in the main.
+\else
+	% References
+	\bibliography{\Pathbasebib} % for bibtex or natbib
+	%\printbibliography     % for biblatex
+
+	%%% To comment for the final version
+	%\tableofcontents
+	\printunsrtglossary[type=acronym]
+	\printunsrtglossary[type=symbol]
+\fi
+
+\addtocounter{levelstanda}{-1}
+\end{document}
+%EoF

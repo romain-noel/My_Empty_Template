@@ -1,0 +1,23 @@
+## GitLab-CI/CD configuration file.
+##
+
+## A standard LaTeX docker image.
+image: registry.gitlab.com/islandoftex/images/texlive:latest
+
+## The stages to complete.
+stages:
+  - build
+
+#### STAGE: Build
+####
+build-pdf:
+  stage: build
+  script:
+    - latexmk
+  after_script:
+    - cat main.log
+  artifacts:
+    paths:
+      - main.pdf
+
+# EoF

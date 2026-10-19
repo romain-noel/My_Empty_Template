@@ -1,0 +1,76 @@
+{% raw %}
+\documentclass[12pt]{standalone} 
+	\usepackage[T1]{fontenc}
+	
+	\providecommand{\PathR}{../../resources}  % Path to Supplies and Ressources folders
+	\providecommand{\PathS}{../}
+	\providecommand{\BuildTrigger}{buildnew} % Trigger to build or not
+	
+	\makeatletter							% to be able to find package in ressource folders.
+	\def\input@path{ {\PathR} }
+	\ifx\c@levelstanda\undefined 	% to create a newcounter if it doesnt exists.
+		\newcounter{levelstanda}
+	\else	
+		{}% it already exist
+	\fi
+	\makeatother
+	
+	\providecommand{\PathSymbolsEntries}{\PathR UsersSymbolsAcronyms}%.bib
+	\providecommand{\Pathbasebib}{\PathR/ref_RN.bib,\PathR/ref_XX.bib}% Careful no space!
+	\providecommand{\famName}[1]{\textsc{#1}}
+
+	\usepackage{xr}%creating references to labels in another file
+		\externaldocument{../../main} % on local computer
+		\externaldocument{./main} % on Overleaf
+	
+	\usepackage{amsmath}
+	%\usepackage{import}
+	\usepackage{tikz} %
+	\usepackage{pgfplots} %
+		\pgfplotsset{compat=newest} %
+	\usepackage[sort&compress]{cleveref}
+
+	\usepackage[record, automake]{glossaries-extra}
+	\newglossary*{acronym}{Abbreviations}
+	\newglossary*{symbol}{Nomenclature}
+	% new keys must be defined before \GlsXtrLoadResources
+	\glsaddstoragekey{unit}{}{\glsentryunit}
+	% define style of the abbreviation in the text
+	\setabbreviationstyle[acronym]{long-short}
+	\setabbreviationstyle[foreignabbreviation]{long-short-user}
+	\GlsXtrLoadResources[
+		src={\PathSymbolsEntries}, % entries in symbols.bib
+		entry-type-aliases={foreignabbreviation=abbreviation},
+		type=symbol,
+		match={entrytype=symbol},
+		symbol-sort-fallback=name,% sort @symbol entries by name field
+		identical-sort-action=description,% sort by description if sort value identical
+	]
+
+
+\begin{document}
+\begin{tikzpicture}
+	\pgfplotsset{
+%			width=0.99\linewidth,
+%			height=0.5\textwidth,
+%			z post scale=1.5, 
+	}
+		
+	\begin{axis}[ %axis, loglogaxis, semilogyaxis, polaraxis, smithchart,ternaryaxis
+		xlabel={Space-$\gls{posi}$ },	% nom de l'axe x
+		ylabel={Time $\gls{time}$ },
+	]			
+			
+		% \multido{\n=3.00+10}{15}{
+		% \pgfplotsinvokeforeach{52,62,...,202}{	
+		\addplot[ color=blue,  dashed	]
+			table[x=x, y=T, ignore chars={\#}, col sep=semicolon, 
+				/pgf/number format/read comma as period
+			]{\PathS/example/Temperature.csv}
+		;
+		\legend{toto}%from \cite{Chapman_1970} or \cref{eq:boltzmann}}
+		% }
+	\end{axis}
+\end{tikzpicture}
+\end{document}
+{% endraw %}

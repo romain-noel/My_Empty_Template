@@ -1,0 +1,225 @@
+%%%% ---- LaTeX File ---- %%%%
+\providecommand{\PathP}{../../parts/}  % Path to  Resources folders
+\providecommand{\PathR}{../../resources/}  % Path to  Resources folders
+\providecommand{\PathSO}{../../sources/}  % Path to Sources folders
+\providecommand{\PathS}{../../supplies/}  % Path to Supplies folders
+\providecommand{\lang}{english}  % english, french
+\providecommand{\BuildTrigger}{buildnew}  % Trigger to build or not standalone parts.
+
+\makeatletter
+	\def\input@path{ {\PathSO}{\PathSO/Springer} }  % to be able to find package in source folders.
+		\ifx\c@levelstanda\undefined  % to create a new-counter if it doesn't exists.
+		\newcounter{levelstanda}
+	\else
+		{}% it already exist
+	\fi
+\makeatother
+
+% LaTeX rebuttal letter example.
+\documentclass[12pt, review]{elsarticle}
+%%%%---- OS & FONT -------------------------%%%%
+	\usepackage[utf8]{inputenc}  % Input keyboard encoding: latin1=windows, utf8=linux, applemac=Mac
+	\usepackage[T1]{fontenc}  % Output font encoding: T1 for Europeans languages.
+
+%%%%---- PERSONAL Custom ----------------------%%%%
+		\newcommand{\Pathbasebib}{\PathR/ref_RN.bib,\PathR/ref_XX.bib}% Careful no space!
+		\newcommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms.bib}
+	\input{\PathR/UsersPackagesDefs.tex}
+	% \input{\PathR/UsersSymbolsAcronyms.tex}
+	\input{\PathR/UsersMathsCommands.tex}
+
+	\usepackage{geometry}
+		\geometry{margin=2.2cm}
+
+	% \usepackage[numbers]{natbib}
+
+	\usepackage{tcolorbox}
+		\tcbuselibrary{skins, breakable, theorems}
+		\renewcommand\thesubsection{\alph{subsection})}
+
+	\usepackage{setspace}
+	\usepackage{titlesec}
+		\titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{\setstretch{0.1}}
+		\titleformat{\subsection}{\normalfont\itshape}{\color{blue} \thesubsection}{0.5em}{\setstretch{0.1}}
+
+		% define counters for reviewers and their points
+		\newcounter{reviewer}
+		\setcounter{reviewer}{0}
+		\newcounter{point}[reviewer]
+		\setcounter{point}{0}
+
+		% This refines the format of how the reviewer/point reference will appear.
+		\renewcommand{\thepoint}{P\,\thereviewer.\arabic{point}}
+
+		% command declarations for reviewer points and our responses
+		\newcommand{\reviewersection}{
+			\stepcounter{reviewer}
+			\bigskip \bigskip \hrule
+			\subsection*{\bfseries To Reviewer \thereviewer}
+			\addcontentsline{toc}{subsection}{To Reviewer \thereviewer}
+			\bigskip \hrule \bigskip
+		}
+
+		\newenvironment{point}
+			{\refstepcounter{point} \bigskip \noindent {\textbf{Reviewer~Point~\thepoint} } ---\ \color{blue}}
+			{\par}
+		\crefname{point}{\textit{Point}}{\textit{Points}}
+
+		\newenvironment{revision}[2][]
+			{\vspace{0.2cm} \begin{tcolorbox}[breakable, enhanced,
+			title = Revision \thepoint \  #2,#1,
+			% colbacktitle = red!85!black, colframe = red!75!black, colback = yellow
+			]\normalfont
+			}
+		{\par\end{tcolorbox}}
+		\crefname{revision}{\textit{Revision}}{\textit{Revisions}}
+
+		\newcommand{\shortpoint}[1]{\refstepcounter{point}  \bigskip \noindent
+			{\textbf{Reviewer~Point~\thepoint} } ---~#1\par }
+
+		\newenvironment{reply}
+			{\medskip \noindent \textbf{Reply}:\ \begin{sf}}
+			{\medskip \end{sf}}
+		\crefname{reply}{\textit{Reply}}{\textit{Replies}}
+
+		\newcommand{\shortreply}[2][]{\medskip \noindent \begin{sf}\textbf{Reply}:\  #2
+			\ifthenelse{\equal{{"{"}}#1{{"}"}}{}}{}{ \hfill \footnotesize (#1)}%
+			\medskip \end{sf}}
+
+		% Line & Page
+		% \newcommand{\linepage}[2]{
+		% \par \rightline{\textbf{Line #1, Page #2}}
+		% }
+		\newcommand{\linepage}[2]{
+			\par \rightline{\textbf{Page #2}}
+		}
+
+		\newcommand{\footlabel}[2]{
+			\addtocounter{footnote}{1}
+			\footnotetext[\thefootnote]{
+				\addtocounter{footnote}{-1}
+				\refstepcounter{footnote}\label{{"{"}}#1{{"}"}}
+				#2
+			}
+			$^{\ref{{"{"}}#1{{"}"}}}$%
+		}
+
+
+		\Crefname{line}{Line}{Lines}
+		\crefformat{footnote}{{"{"}}#2\footnotemark[#1]#3{{"}"}}
+
+	\usepackage[misc]{ifsym}
+	\usepackage{bbding}
+
+		\def\mycoauthor{R. NOEL, A. RENIER-ROBIN \& L. NAVARRO}
+		\def\mytitle{Article Title: Generalized Dithering using the Lattice \famName{Boltzmann} Method} % title
+		\def\myarticleno{Article Number: 4eae087c-18f1-49c7-967a-594ee78dc2e6}
+		\def\mydate{\today} % date
+
+		\def\myauthor{
+			Romain \famName{Noël} \footlabel{uge}{Gustave Eiffel University}$^,$\Envelope
+			, Alexis \famName{Renier-Robin}\footref{uge}$^,$\footref{emse}
+			, Laurent \famName{Navarro}\footlabel{emse}{École des Mines de Saint-Étienne}
+		}
+
+	\usepackage{xr}
+		\externaldocument{../../main_v2} % on local computer
+		\externaldocument{./main_v2} % on Overleaf
+
+
+\begin{document}
+
+\begin{titlepage}
+	\noindent \textbf{\myarticleno} \\
+	\mytitle \\
+	\myauthor
+	\begin{center}
+		\vspace{0.8cm}
+
+		\Large \textbf{Response to Editors \& Reviewers}
+
+		\vspace{0.8cm}
+	\end{center}
+
+	% \begin{tcolorbox}[breakable, title = To editors and reviewers]
+		Dear editors and reviewers:
+		\bigskip
+
+		\quad Our sincere thanks go out to the editors and reviewers who reviewed our manuscript and provided constructive comments that significantly improved it.
+
+		\quad We have made detailed revisions in response to comments and suggestions made by editors and reviewers, and the main changes are summarized below:
+		\begin{itemize}
+			\item \ul{Reduce the introduction and highlight the Gap;}
+			\item \ul{Improve the GPU explanations;}
+			\item \ul{Extend the discussion and explanations about the computational time.}
+		\end{itemize}
+		\bigskip
+
+		Best regards, \\
+		\mycoauthor \\
+		\mydate
+	% \end{tcolorbox}
+
+\end{titlepage}
+
+%
+% \tableofcontents
+% \newpage
+\newpage
+
+\section{Response to Reviewers}
+	\noindent Dear Reviewers:
+
+	Again, we would like to express our gratitude to you for your time and effort in reviewing and processing our manuscript, especially for providing constructive comments and valuable suggestions for significantly improving the manuscript.
+	Following these comments and suggestions, we have changed the revised manuscript.
+	A point-by-point reply to the reviewer's comments is given below, where in each case we quote the referee's comments and then explain how we have revised the paper to accommodate the revisions requested.
+	For easy cross-referencing, the comments are \textcolor{blue}{marked in blue} while we use the \begin{sf}black sans serif font\end{sf} for our responses.
+	Meanwhile, the contents in the revised paper are \chadded{green}.
+	\\
+
+	\noindent \mycoauthor
+
+	\noindent \mydate
+
+
+\newpage
+% \setcounter{reviewer}{1}
+\reviewersection
+
+	% Point one description
+	\begin{point}
+		The comments of the reviewer.
+	\end{point}
+	% Our reply
+	\begin{reply}
+		Our reply.
+
+		\begin{revision}{}
+			the correction in the text.
+		\end{revision}
+	\end{reply}
+
+
+\newpage
+% reviewer 2
+\reviewersection
+
+	% Point one description
+	\begin{point}
+		The comments of the reviewer.
+	\end{point}
+	% Our reply
+	\begin{reply}
+		Our reply.
+
+		\begin{revision}{}
+			the correction in the text.
+		\end{revision}
+	\end{reply}
+
+
+% \bibliographystyle{plain}
+\bibliographystyle{elsarticle-num}
+\bibliography{\Pathbasebib}
+
+\end{document}

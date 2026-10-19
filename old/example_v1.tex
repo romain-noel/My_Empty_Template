@@ -1,0 +1,220 @@
+% !TEX root = ../main.tex
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8
+% !TEX spellcheck = en_US
+
+%%%% ---- LaTeX File ---- %%%%
+\providecommand{\PathP}{./parts/} % Path to  Resources folders
+\providecommand{\PathR}{./resources/} % Path to  Resources folders
+\providecommand{\PathSO}{./sources/} % Path to Sources folders
+\providecommand{\PathS}{./supplies/} % Path to Supplies folders
+\providecommand{\lang}{english}	% english, french
+\providecommand{\BuildTrigger}{buildnew} % Trigger to build or not standalone parts.
+
+\makeatletter
+	\def\input@path{ {\PathSO}{./another-directory/} } % to be able to find package in source folders.
+	\ifx\c@levelstanda\undefined % to create a new-counter if it doesn't exists.
+	    \newcounter{levelstanda}
+	\else
+	    {}% it already exist
+	\fi
+\makeatother
+
+
+%%%%---- DOCUMENT-CLASS -------------------------%%%%
+\documentclass[a4paper]{article}  % or another class
+	\usepackage[l2tabu, orthodox]{nag}	% Helps to correct the script
+
+%%%%---- OS & FONT -------------------------%%%%
+	\usepackage[utf8]{inputenc} % Input keyboard encoding: latin1=windows, utf8=linux, applemac=Mac
+	\usepackage[T1]{fontenc} 	% Output font encoding: T1 for Europeans languages.
+
+%%%%---- PERSONAL Custom ----------------------%%%%
+    \newcommand{\Pathbasebib}{\PathR/ref_RN.bib,\PathR/ref_XX.bib}% Careful no space!
+    \newcommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms.bib}
+	\input{\PathR/UsersPackagesDefs.tex}
+	\input{\PathR/UsersMathsCommands.tex}
+        \geometry{margin=2.5cm}
+
+
+%%%%%---- JOURNAL SPECS -------------------------%%%%
+    %\journal{Journal of XX}
+    \title{My eXAMPLE Template}
+    \author{Romain \famName{Noël}}
+    \date{\today}
+
+
+%%%%%%%%%%%%%%%  MAIN DOCUMENT  %%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\stepcounter{levelstanda}
+
+%% FRONTMATTER
+\ifnum\value{levelstanda}>1
+	{}% Not in the main.
+\else
+    \maketitle
+\fi
+
+
+%% MAINMATTER
+\section{Introduction}
+    \label{sec:intro}  % \label{} allows reference to this section
+    Example of an acronym managed by 'glossaries' package: \gls{lbm} from \cite{Bhatnagar_1954,Chapman_1970}.
+    But the second call of \gls{lbm} appears shorter.
+
+    Example of an equation using 'derivative' package and glossaries (for symbols):
+    \begin{equation}
+    	\label{eq:boltzmann}
+    	\pdv{\gls{BoltzDist}}{\gls{time}}
+    	+\gls{parti_spe}\cdot\gradN[\gls{posi}]{\gls{BoltzDist}} + \gls{forcg}\cdot\gradN[\gls{parti_spe}]{\gls{BoltzDist}} =\CollOp{\gls{BoltzDist},\gls{BoltzDist}}
+        \ .%
+    \end{equation}
+
+
+\section{Sate of the Art}
+\subsection{This is a subsection}
+
+    \begin{figure}[htb]
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\linewidth, draft]{\PathS/example/D1Q5.pdf}
+            \caption{Something draft a.}
+            \label{fig:draftA}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\linewidth, draft]{\PathS/example/D1Q5.pdf}
+            \caption{Something else draft b.}
+            \label{fig:draftB}
+        \end{subfigure}
+        \caption{Example of subfigures where (\subref{fig:draftA}) is a first element and (\subref{fig:draftB}) is a second one.}
+        \label{fig:subfig}
+    \end{figure}
+
+    \begin{figure}[htbp]
+        \centering
+		% \UpdateLineAndBaseLength{} % set the local
+		% \UpdatePlotSize{width=0.6\string\linewidth}{}
+        % \begin{nomemoize}
+		% \includestandalone[mode=\BuildTrigger, %build, %
+		% 		% width=0.99\linewidth
+		% 	]{\PathS/example/plot_test}%.tex
+        % \end{nomemoize}
+		% \renewcommand{\plotsize}{}
+	    \input{\PathS/example/plot_test}%.tex
+        \caption{Test of simple plot using TikZ+CSV+glossaries.}
+		\label{fig:test}
+	\end{figure}
+
+
+	\begin{figure}[htbp]
+		\centering
+		% \includestandalone[mode=\BuildTrigger, %build,
+		% 		%width=0.99\linewidth
+		% 	]{\PathS/example/D1Q5-stda}%.tex
+	    \input{\PathS/example/D1Q5-stda}%.tex
+    	\caption{Test of a simple sketch using Inkscape+\LaTeX+glossaries}
+		\label{ch1:fig:D1Q5}
+	\end{figure}
+
+    \begin{table}[htbp]
+		% %\UpdateLineAndBaseLength{} % set the local
+		% %\UpdatePlotSize{width=0.6\string\linewidth}{}
+		% % \centering
+		% \includestandalone[mode=\BuildTrigger, %build, %
+		% 		%width=0.99\linewidth
+		% 	]{\PathS/example/table_csv_test}%.tex
+		% %\renewcommand{\plotsize}{}
+		\input{\PathS/example/table_csv_test}%.tex
+        \caption{Test of table tabularray+CSV+glossaries+SIunitX.}
+		\label{tab:test}
+	\end{table}
+
+    \begin{table}[htbp]
+		% %\UpdateLineAndBaseLength{} % set the local
+		% %\UpdatePlotSize{width=0.6\string\linewidth}{}
+		% % \centering
+		% \includestandalone[mode=\BuildTrigger, %build, %
+		% 		%width=0.99\linewidth
+		% 	]{\PathS/example/table_simple-stda}%.tex
+		% %\renewcommand{\plotsize}{}
+		\input{\PathS/example/table_simple-stda}%.tex
+        \caption{Test of table standalone manual tabularray.}
+		\label{tab:test_manual}
+	\end{table}
+
+	\begin{algorithm}{Example using 'pseudo': Euclid's algorithm, \pr{Euclid}(a, b)}{euclid}
+    %     \includestandalone[mode=\BuildTrigger, %build,
+    %         %width=0.99\linewidth
+    %     ]{\PathS/example/algo}%.tex
+    %     % \input{\PathS/example/algo}
+        \input{\PathS/example/algo}%.tex
+        % \caption{Example using 'pseudo': Euclid's algorithm, \pr{Euclid}(a, b)}
+        % \label{alg:euclid}
+    \end{algorithm}
+
+    And here is a ref to Euclid in \cref{alg:euclid}.
+
+	\FloatBarrier
+
+    \begin{lstlisting}[language=C++, frame=single, caption=An extract of \lstinline$C++$ code using 'listing'., gobble=8]
+        #include <stdio.h>
+        #define N 10
+        /* Block
+         * comment
+         */
+
+        int main() {
+            int i;
+
+            // Line comment.
+            puts("Hello world!");
+
+            for (i = 0; i < N; i++)
+            {
+                puts("LaTeX is also great for programmers!");
+            }
+
+            return 0;
+        }
+    \end{lstlisting}
+
+    \lstinputlisting[language=Python, frame=single,
+        caption=Another example including directly the \lstinline$Python source$ file.,
+        firstline=2,lastline=7
+    ]{\PathS/example/file.py}
+
+    Otherwise, you can also use lstinline to refer to \lstinline{some code}.
+
+    Something after.
+    \chhighlight[id=RN]{highlighted}.
+
+    You can also hide some text using comment (and add a post-it to remember that it is here):
+    \begin{comment}this will not appear\end{comment}
+    \chcomment[id=RN]{Here there is some hidden latex code.}
+
+
+\section*{Acknowledgments}
+
+    This unnumbered section is used to identify those who have aided the authors in understanding or accomplishing the work presented and to acknowledge sources of funding.
+
+
+%% BACK-MATTER
+%\appendix
+\ifnum\value{levelstanda}>1
+	{}% Not in the main.
+\else
+    % References
+    \bibliography{\Pathbasebib} % for bibtex or natbib
+    %\printbibliography     % for biblatex
+
+	%%% To comment for the final version
+	%\tableofcontents
+	\printunsrtglossary[type=acronym]
+	\printunsrtglossary[type=symbol]
+\fi
+
+\addtocounter{levelstanda}{-1}
+\end{document}
+%EoF

@@ -1,0 +1,121 @@
+%!TEX root = ../LaBoDither_springer_v0.tex
+%!TEX encoding = UTF-8
+%!TEX spellcheck = en_US
+
+%%%% ---- LaTeX File ---- %%%%
+\providecommand{\PathP}{../../Parts}  % Path to Parts folders
+\providecommand{\PathR}{../../Resources}  % Path to  Resources folders
+\providecommand{\PathS}{../../Supplies/}  % Path to Supplies folders
+\providecommand{\PathSO}{../../Sources/}  % Path to Sources folders
+\providecommand{\lang}{english}  % english, french
+\providecommand{\BuildTrigger}{buildnew}  % Trigger to build or not standalone parts.
+
+\makeatletter
+	\def\input@path{ {\PathSO}{./another-directory/} }  % to be able to find package in source folders.
+		\ifx\c@levelstanda\undefined  % to create a newcounter if it doesn't exists.
+		\newcounter{levelstanda}
+	\else
+		{}% it already exist
+	\fi
+\makeatother
+
+%%%%---- DOCUMENT-CLASS -------------------------%%%%
+\documentclass{article}
+	\usepackage[l2tabu, orthodox]{nag}  % Helps to correct the script
+
+%%%%---- OS & FONT -------------------------%%%%
+	\usepackage[utf8]{inputenc}  % Input keyboard encoding: latin1=windows, utf8=linux, applemac=Mac
+	\usepackage[T1]{fontenc}  % Output font encoding: T1 for Europeans languages.
+
+
+%%%%---- PERSONAL Custom ----------------------%%%%
+		\newcommand{\Pathbasebib}{\PathR/ref_RN.bib,\PathR/ref_XX.bib}% Careful no space!
+		\newcommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms.bib}
+	\input{\PathR/UsersPackagesDefs.tex}
+	% \input{\PathR/UsersSymbolsAcronyms.tex}
+	\input{\PathR/UsersMathsCommands.tex}
+
+%%%%---- ONLY to ADAPT without JOURNAL CLASS ----%%%%
+	\usepackage[margin=3cm]{geometry}
+	\usepackage{natbib}
+		\bibliographystyle{plain}
+
+
+%%%%---- Journal Spec -------------------------%%%%
+\title{Cover Letter}
+\author{
+	Romain~\famName{Noël}, John~\famName{Doe}
+}
+
+
+%%%%%%%%%%%%%%%  MAIN DOCUMENT  %%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\stepcounter{levelstanda}
+
+	\begin{flushleft}
+		\underline{Origin}:\newline
+		Romain~\famName{Noël} \newline
+		Gustave Eiffel University \newline
+		romain.noel@univ-eiffel.fr \newline
+		10th of January 2024
+	\end{flushleft}
+
+	\begin{flushright}
+		\underline{Destination}: \\
+		Pr. Ahmet Enis Cetin, Editor in Chief \\
+		SIVP Journal
+	\end{flushright}
+
+	\begin{center}
+		\underline{Subject}: Submission of the article entitled: "A Generalized Dithering Approach using the Lattice Boltzmann Method"
+	\end{center}
+
+
+	Dear Editor,
+
+	I am writing to submit our manuscript entitled "A Generalized Dithering Approach using the Lattice Boltzmann Method" for consideration for publication in {Signal, Image and Video Processing}.
+	I believe that the research presented in this paper makes a valuable contribution to the field of {signal and image processing}.
+
+	We propose a comprehensive dithering approach employing the Lattice Boltzmann Method (LBM).
+	This generalized approach facilitates the exploration of various models, enabling adaptation to specific features and challenges.
+	As exemplifications, we introduce and assess four models, encompassing anisotropic gradient-based relaxation time and an improved equilibrium distribution function.
+	The primary objective is to enhance the quality and reduce artifacts.
+	Implementation of these models on Graphics Processing Units (GPUs) and their generic integration using the OBLiX framework are discussed.
+	The outcomes of multiple test cases demonstrate that such models yield superior qualitative and quantitative results, underlining the adaptability of the proposed generalization.
+	This paper establishes a framework for dithering using the Lattice Boltzmann Method, allowing algorithm adaptation to intricate scenarios beyond conventional cases typically encountered.
+
+	I believe that the innovative approach presented in this paper aligns well with the scope and interests of your journal.
+	The utilization of the Lattice Boltzmann Method for dithering, along with the introduction of novel models, contributes to the understanding of both LBM and dithering methods.
+	The experiments conducted, particularly those involving GPU implementation and interfacing with the OBLiX framework, highlight the practical applicability of the proposed approach.
+
+	I think %have ensured
+	that the manuscript adheres to the submission guidelines of {Signal, Image and Video Processing}.
+	I am confident that the findings presented in this paper will be of interest to the journal's readership and will contribute positively to the ongoing discourse in our field.
+
+	Thank you for considering my submission.
+	I look forward to the opportunity for peer review and feedback from the esteemed reviewers at {Signal, Image and Video Processing}.
+
+	\begin{flushright}
+		Best regards, \\
+		Dr. Romain \famName{Noel} (in the name of all authors), \\
+		Scientific research, \\
+		Gustave Eiffel University, \\
+		romain.noel@univ-eiffel.fr
+	\end{flushright}
+
+\ifnum\value{levelstanda}>1
+	{}% Not in the main.
+\else
+
+	% References
+	% \bibliography{\Pathbasebib} % for bibtex or natbib
+	% %\printbibliography     % for biblatex
+
+	%%% To comment for the final version
+	% %\tableofcontents
+	% \printglossary[type=\glsxtrabbrvtype]
+	% \printglossary[type=symbol]
+\fi
+
+\addtocounter{levelstanda}{-1}
+\end{document}

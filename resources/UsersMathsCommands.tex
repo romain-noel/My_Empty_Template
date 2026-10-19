@@ -1,0 +1,362 @@
+%%%%    UsersMathCommands.tex             %%%%
+%%%%    version 0.2.1 du 05/01/2026       %%%%
+%%%%    Author: Romain NOËL               %%%%
+%%%%    email: romain.noel@univ-eiffel.fr %%%%
+%%%%--------------------------------------%%%%
+
+
+%%%%---- OS & FONT     -------------------------%%%%
+%%%%---- POLICE     ----------------------------%%%%
+%%%%---- TEXT FORMATTING -----------------------%%%%
+%%%%---- SPACING & JUSTIFICATION ---------------%%%%
+%%%%---- LAYOUT & MARGINS ----------------------%%%%
+%%%%---- FOOT PAGE & HEAD ----------------------%%%%
+%%%%---- TABLE of CONTENT & FIGURES ------------%%%%
+%%%%---- PARTS & CHAPTERS ----------------------%%%%
+%%%%---- WATERMARKS ----------------------------%%%%
+%%%%---- COVER PAGE ----------------------------%%%%
+%%%%---- IMAGES & FLOAT ------------------------%%%%
+%%%%---- DRAWING & GRAPHS ----------------------%%%%
+%%%%---- TABLES & BOXES ------------------------%%%%
+%%%%---- SYMBOLS -------------------------------%%%%
+%%%%---- MATHS & PHYSICS -----------------------%%%%
+
+	% \usepackage{mathtools}
+		% \DeclarePairedDelimiterXPP{cmd}[num args]{pre code}{left_delim}{right_delim}{post code}{body}
+	% \usepackage{etoolbox}
+
+		\DeclarePairedDelimiterX\VertAux[1]\lVert\rVert{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\vertAux[1]\lvert\rvert{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\parenthesisAux[1](){ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\braceAux[1]\{\}{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\bracketAux[1][]{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\floorAux[1]\lfloor\rfloor{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\ceilAux[1]\lceil\rceil{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\DeclarePairedDelimiterX\angleAux[1]\langle\rangle{ \ifblank{#1}{\,\cdot\,}{#1} }
+		\NewDocumentCommand{\delimAux}{somm}{
+			\IfBooleanTF{#1}{%
+				\csname#3\endcsname*{#4}%
+			}{\IfNoValueTF{#2}{%
+					\csname#3\endcsname{#4}%
+				}{%
+					\csname#3\endcsname[#2]{#4}%
+				}%
+			}%
+		}
+		\NewDocumentCommand{\delimAuxSub}{sommO{}}{
+			\IfBooleanTF{#1}
+			{\csname#3\endcsname*{#4}_{#5}}%
+			{\IfNoValueTF{#2}{\csname#3\endcsname{#4}_{#5}}{\csname#3\endcsname[#2]{#4}_{#5}}}%
+		}
+
+		\DeclarePairedDelimiterX\angleMidAux[3]{\langle}{\rangle}{%
+			\ifblank{#1}{\,\cdot}{#1} \,\delimsize#2\,\mathopen{} \ifblank{#3}{\cdot\,}{#3}%
+		}
+		\NewDocumentCommand{\delimAuxMid}{sommmm}{
+			%\delimAuxMid{*} [\big] {angleMidAux} {a} {\vert} {b}%
+			%\delimAuxMid{#1} [#2]    {#3}       {#4} {#5}    {#6}%
+			\IfBooleanTF{#1}{%
+				\csname#3\endcsname*{#4}{#5}{#6}%
+			}{\IfNoValueTF{#2}{%
+					\csname#3\endcsname{#4}{#5}{#6}%
+				}{%
+					\csname#3\endcsname[#2]{#4}{#5}{#6}%
+				}%
+			}%
+		}
+		\DeclarePairedDelimiter\PPD{(}{)}
+		\DeclarePairedDelimiter\BPD{[}{]}
+		\DeclarePairedDelimiter\BkPD\{\}
+		\NewDocumentCommand{\delimOperators}{st!ommme{_^}}{
+			% \cos{2} or \cos*{frac 2 }^2_3 or \cos!{\pi} or \cos
+			% \delimOperators* ! [\big]{operatorName}{delim}{x}_{}^{}
+			% \delimOperators#1#2 [#3]    {#4}       { #5 } {#6}_{#7}^{#8}
+			\IfBooleanTF{#2}{%
+				#4\IfNoValueTF{#7}{}{_{#7}}\IfNoValueTF{#8}{}{^{#8}} \mkern1.5mu {#6}%
+			}{
+				\IfBooleanTF{#1}{%
+					#4\IfNoValueTF{#7}{}{_{#7}}\IfNoValueTF{#8}{}{^{#8}} \csname#5\endcsname*{#6}%
+				}{\IfNoValueTF{#3}{%
+						#4\IfNoValueTF{#7}{}{_{#7}}\IfNoValueTF{#8}{}{^{#8}} \csname#5\endcsname{#6}%
+					}{%
+						#4\IfNoValueTF{#7}{}{_{#7}}\IfNoValueTF{#8}{}{^{#8}} \csname#5\endcsname[#3]{#6}%
+					}%
+				}%
+			}
+		}
+
+		%%% Sets
+		\newcommand\ST{}
+		\DeclarePairedDelimiterX\Set[1]\{\}{%
+			\renewcommand\ST{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+			#1
+		}
+		\NewDocumentCommand{\iintvargsaux}{mm} {#1\mkern1.5mu .. \mkern1.5mu#2\mkern1.5mu}
+		\NewDocumentCommand{\iintvargs}{>{\SplitArgument{1}{,}}m}{\iintvargsaux#1}
+		\DeclarePairedDelimiterX{\Iintv}[1]{\llbracket}{\rrbracket}{\iintvargs{#1}}
+		\newcommand{\Nat}{\ensuremath{ \mathbb{N} }}
+		\newcommand{\Rela}{\ensuremath{ \mathbb{Z} }}
+		\newcommand{\Rati}{\ensuremath{ \mathbb{Q} }}
+		\newcommand{\Rea}{\ensuremath{ \mathbb{R} }}
+		\newcommand{\Com}{\ensuremath{ \mathbb{C} }}
+		\newcommand{\Kalg}{\ensuremath{ \mathbb{K} }}
+		\newcommand{\Quat}{\ensuremath{ \mathbb{H} }}
+		\newcommand{\Hilb}{\ensuremath{ \mathcal{H} }}
+		\newcommand{\Bana}{\ensuremath{ \mathcal{B} }}
+		\newcommand{\Lebe}{\ensuremath{ \mathcal{L} }}
+		\newcommand{\Sobo}{\ensuremath{ \mathcal{S} }}
+		\newcommand{\trib}{\ensuremath{ \tau }}
+		\newcommand{\univ}{\ensuremath{ \Omega }}
+		% Special linear SL(n)
+		\NewDocumentCommand{\setSL}{som}{\ensuremath{\operatorname{SL} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Orthogonal O(n)
+		\NewDocumentCommand{\setO}{som}{\ensuremath{\operatorname{O} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Euclidean E(n)
+		\NewDocumentCommand{\setEucl}{som}{\ensuremath{\operatorname{E} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Special orthogonal SO(n)
+		\NewDocumentCommand{\setSO}{som}{\ensuremath{\operatorname{SO} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Unitary U(n)
+		\NewDocumentCommand{\setU}{som}{\ensuremath{\operatorname{U} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Special unitary SU(n)
+		\NewDocumentCommand{\setSU}{som}{\ensuremath{\operatorname{SU} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Symplectic Sp(n)
+		\NewDocumentCommand{\setSp}{som}{\ensuremath{\operatorname{Sp} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% Lie group G(n)
+		\NewDocumentCommand{\setLie}{som}{\ensuremath{\operatorname{G} %
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}}
+		% polynomial ring in X over K, which is denoted K^n[X]
+		\NewDocumentCommand{\setPoly}{sommO{}}{\ensuremath{ {#3}\IfNoValueTF{#5}{}{^{#5}}%
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {bracketAux} {#4}}%
+		}}
+
+		%%% Logic, modus ponens
+		\NewDocumentCommand{\Land}{mm}{\ensuremath{ \ifblank{#1}{\,\cdot\,}{#1} \mathbin{\land} \ifblank{#2}{\,\cdot\,}{#2} }}%\wedge
+		\NewDocumentCommand{\Lor}{mm}{\ensuremath{ \ifblank{#1}{\,\cdot\,}{#1} \mathbin{\lor} \ifblank{#2}{\,\cdot\,}{#2} }}%\vee
+		\NewDocumentCommand{\Lso}{mm}{\ensuremath{ \ifblank{#1}{\,\cdot\,}{#1} \mathbin{\vdash} \ifblank{#2}{\,\cdot\,}{#2} }}%\therefore %\to
+		\NewDocumentCommand{\Lnot}{m}{\ensuremath{ {\neg} \ifblank{#1}{\,\cdot\,}{#1} }}
+		\NewDocumentCommand{\defeq}{mm}{\ensuremath{ \ifblank{#1}{\,\cdot\,}{#1} \mathbin{\coloneq} \ifblank{#2}{\,\cdot\,}{#2} }}%\triangleq %\overset{\text{def}}{=}
+
+		%%% Topology
+		\DeclareMathOperator{\card}{Card}
+		\DeclareMathOperator{\Ima}{Im}
+		% \DeclareMathOperator{\ker}{Ker} % already exists
+		% \DeclareMathOperator{\hom}{Hom} % already exists
+		\NewDocumentCommand{\adher}{m}{\ensuremath{ \overline{\ifblank{#1}{\,\cdot\,}{#1}} }}
+		% \NewDocumentCommand{\compl}{om}{\ensuremath{ \IfNoValueTF{#1}
+		% 	{ #2^{C} }
+		% 	{ \mathtt{C}_{#1} {#2} }
+		% }}%
+		% \NewDocumentCommand{\norm}{somO{}}{%
+		% 	\expanded{\delimAuxSub\IfBooleanT{#1}{*} [\unexpanded{#2}] {VertAux} {#3} [#4]}%
+		% }
+		\NewDocumentCommand{\absval}{somO{}}{%
+			\expanded{\delimAuxSub\IfBooleanT{#1}{*} [\unexpanded{#2}] {vertAux} {#3} [#4]}%
+		}
+
+		%%% Arithmetic
+		% \NewDocumentCommand{\gcd}{somm}{\ensuremath{\operatorname{GCD} %
+		% 	\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3\mathbin{,}#4}}%
+		% }}
+		% \NewDocumentCommand{\lcm}{somm}{\ensuremath{\operatorname{LCM} %
+		% 		\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3\mathbin{,}#4}}%
+		% }}
+		\NewDocumentCommand{\modu}{mmm}{\ensuremath{
+			\ifblank{#1}{\,\cdot\,}{#1} \mathbin{\equiv} \ifblank{#2}{\,\cdot\,}{#2} (\operatorname{mod} \ifblank{#3}{\,\cdot\,}{#3})
+		}}
+		% \NewDocumentCommand{\floor}{som}{\ensuremath{ %
+		% 		\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {floorAux} {#3}}%
+		% }}
+		\NewDocumentCommand{\KnuthIterat}{omm}{\ensuremath{
+				\ifblank{#2}{\,\cdot\,}{#2} \mathbin{ \uparrow\IfNoValueTF{#1}{}{^{#1}} } \ifblank{#3}{\,\cdot\,}{#3}
+		}}
+
+		%%% Complex Analysis
+		\newcommand{\mi}{\ensuremath{ {\mathrm{i}} }}
+		\newcommand{\me}{\ensuremath{ {\mathrm{e}} }}
+		% \DeclareMathOperator{\erf}{erf}
+		\NewDocumentCommand{\bigOh}{som}{\mathbin{\mathcal{O}}%
+			\expanded{\delimAuxSub\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}
+		\NewDocumentCommand{\smallOh}{som}{\mathbin{\omicron}%
+			\expanded{\delimAuxSub\IfBooleanT{#1}{*} [\unexpanded{#2}] {parenthesisAux} {#3}}%
+		}
+		\NewDocumentCommand{\convo}{mm}{\ensuremath{
+				\ifblank{#1}{\,\cdot\,}{#1} \mathbin{\star} \ifblank{#2}{\,\cdot\,}{#2}
+		}}
+		% \NewDocumentCommand{\integ}{e{_^}mm}{%
+		% 	\int\IfNoValueTF{#1}{}{_{#1}}\IfNoValueTF{#2}{}{^{#2}} {#3} \ifblank{#4}{}{\odif{#4}}
+		% }
+
+		%%% Linear Algebra
+		\NewDocumentCommand{\transpo}{m}{\ensuremath{ \ifblank{#1}{\,\cdot\,}{#1}^{T} }}
+		\DeclareMathOperator{\Tr}{Tr}
+		\DeclareMathOperator{\Diag}{diag}
+		\DeclareMathOperator{\spanSet}{span}
+
+		%%% Distributions
+		\NewDocumentCommand{\DiracFunc}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\delta}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\gammaFunc}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\Gamma}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\zetaFunc}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\zeta}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+
+
+		%%% Tensors operations
+		\NewDocumentCommand{\prodSca}{somm}{\expanded{%
+			\delimAuxMid\IfBooleanT{#1}{*} [\unexpanded{#2}] {angleMidAux} {#3} {\vert} {#4}%
+		}}
+		\newcommand{\scalar}{\ensuremath{\cdot}}
+		\NewDocumentCommand{\dyadic}{omm}{\ensuremath{
+				{#2} \mathbin{ \otimes\IfNoValueTF{#1}{}{^{#1}} } {#3}
+		}}
+		\DeclareRobustCommand{\cvdots}{%
+			\vcenter{%
+				\baselineskip=3pt %spacing
+				%\lineskiplimit=0pt
+				%\kern-1pt
+				\hbox{.}\hbox{.}\hbox{.}
+		}}
+		\NewDocumentCommand{\fullcontra}{omm}{\ensuremath{
+				{#2} \mathbin{\IfNoValueTF{#1}{}{\overset{#1}}{\odot} } {#3}
+		}}
+		\NewDocumentCommand{\contra}{omm}{\ensuremath{
+				{#2} \mathbin{\IfNoValueTF{#1}{}{\overset{#1}}{\cvdots} } {#3}
+		}}
+		\NewDocumentCommand{\doublecontra}{mm}{\ensuremath{ {#1} \mathbin{:} {#2} }}
+		\NewDocumentCommand{\divergN}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\nabla\scalar}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\gradN}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\nabla}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\rotN}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\nabla\wedge}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\LaplaN}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\nabla^{2}}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\DalembN}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\Box}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\DeclareMathOperator{\diverg}{div}
+		\DeclareMathOperator{\gradi}{grad}
+		\DeclareMathOperator{\rota}{rot}
+		\NewDocumentCommand{\divergO}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\diverg}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\gradO}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\gradi}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\rotO}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\rota}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\LaplaO}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\bigtriangleup}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\DalembO}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\Box}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+
+		%%% Combinator
+		\NewDocumentCommand{\Permut}{somm}{\ensuremath{ \mathop{ \mathcal{P}_^{#3} }%
+				\expanded{\delimAux\IfBooleanT{#1}{*} [\unexpanded{#2}] {bracketAux} {#4}}%
+		}}
+
+		%%% Probabilities
+		\newcommand\given{}
+		\DeclarePairedDelimiterXPP\Prob[1]{ {P} }(){}{
+			\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+			#1}
+		\DeclarePairedDelimiterXPP\prob[1]{ \mathbb{P} }(){}{
+			\renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:\mathopen{}}
+		#1}
+		\NewDocumentCommand{\expe}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\mathbb{E}}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		\NewDocumentCommand{\varia}{st!ome{_^}}{\expanded{%
+				\delimOperators\IfBooleanT{#1}{*}\IfBooleanT{#2}{!} [\unexpanded{#3}]
+				{ \mathop{\mathbb{V}}\strut } %\mathop{A}%\strut%\nolimits
+				{PPD} {#4}_{#5}^{#6}%
+			}
+		}
+		% \DeclareMathOperator{\Cov}{Cov}
+
+		%%% Boltzmann kinetics
+		\NewDocumentCommand{\CollOp}{mm}{\ensuremath{ {\gls{collop}}\PPD{\ifblank{#1}{\,\cdot\,}{#1} \mathrel{,} \ifblank{#2}{\,\cdot\,}{#2}} }}
+		\NewDocumentCommand{\lbmdnqm}{mm}{\ensuremath{ \gls{dim}{#1}\gls{nb_spe}{#2} }}
+
+
+%%%%---- THEOREMS ------------------------------%%%%
+%%%%---- CHEMISTRY & BIO -----------------------%%%%
+%%%%---- CODING --------------------------------%%%%
+%%%%---- INCLUDE OTHER FILES -------------------%%%%
+%%%%---- LaTeX PROGRAMMING  --------------------%%%%
+%%%%---- TESTING & EXTRA -----------------------%%%%
+%%%%---- LINKS & REFERENCES --------------------%%%%
+%%%%---- INDEX & GLOSSARIES --------------------%%%%
+%%%%---- BIBLIOGRAPHY --------------------------%%%%
+%%%%---- TRANSLATION ---------------------------%%%%
+%%%%---- VARIABLES -----------------------------%%%%
+%%%%---- MACROS --------------------------------%%%%
+%%%%---- HYPHENATIONS & ACRONYMS --------------%%%%

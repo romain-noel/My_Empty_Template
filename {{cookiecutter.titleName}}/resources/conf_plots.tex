@@ -1,0 +1,74 @@
+	\pgfplotscreateplotcyclelist{myplotlines}{%
+		% style={solid} \\ %1
+		{densely dashed} \\ %8
+		{dash dot} \\ %4
+		{dash dot dot} \\ %5
+		{dash pattern={on 3pt off 2pt on 3pt off 2pt on 0.5pt off 2pt}} \\ %6
+		{densely dotted} \\ %7
+		{loosely dotted} \\ %2
+		{loosely dashed} \\ %3
+		% style={dash pattern={on 7pt off 3pt on 0.5pt off 2pt}} \\ %9
+		% style={dash pattern={on 7pt off 3pt on 0.5pt off 3pt on 0.5pt off 3pt}}, mark=* \\ %10
+	}
+
+	\pgfplotscreateplotcyclelist{myplotcolors}{%
+		blue \\ %1
+		gray \\ %2
+		red \\ %3
+		green \\ %4
+		black \\ %8
+		purple \\ %6
+		brown \\ %5
+		cyan \\ %7
+		orange \\ %9
+	}
+
+	\pgfplotscreateplotcyclelist{myplotmarks}{%
+		mark= x \\%
+		mark= + \\%
+		mark= star \\%
+		mark= Mercedes star flipped \\%
+		mark= Mercedes star \\%
+		mark= o \\%
+		mark= square \\%
+		mark= triangle \\%
+		mark= diamond \\%
+		mark= otimes \\%
+		mark= * \\%
+		mark= square* \\%
+		mark= triangle* \\%
+		mark= diamond* \\%
+		mark= otimes* \\%
+	}
+
+	\pgfplotsset{
+		myplotstyle/.style={
+			%% Legend
+			legend style={at={(0.95,0.95)}, anchor={north east}},
+			legend pos={north east}, %{outer north east},
+			legend columns=4, %,transpose legend
+			%% grid
+			grid= both, %minor|major|both|none
+			% tick align= outside,
+			% tickpos= left,
+			% extra x ticks ={0.7},
+			%% axis
+			% axis lines = middle,
+  			enlargelimits = true,
+			% enlargelimits={0.015, upper},%false,
+			% enlarge y limits={0.025, upper},
+			%% sytles
+			% cycle multi list={% combine one after another
+			cycle multiindex* list={% combine cycle list in the same time
+				myplotlines
+				\nextlist
+				%[8 of]myplotmarks % if I want to use only some.
+				myplotmarks
+				\nextlist
+				myplotcolors
+				\nextlist
+			},
+			mark options={solid},
+			% mark repeat=3, % draws every nth marker
+		}
+	}

@@ -1,0 +1,6 @@
+{
+    "titleName": "My Empty Template",
+    "firstName": "John",
+    "familyName": "Doe",
+    "type": ["article", "logbook"]
+}

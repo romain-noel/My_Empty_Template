@@ -1,0 +1,80 @@
+% !TEX root = ../main.tex
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8
+% !TEX spellcheck = en_US
+
+%%%% ---- LaTeX File ---- %%%%
+\providecommand{\PathP}{./parts/} % Path to  Resources folders
+\providecommand{\PathR}{./resources/} % Path to  Resources folders
+\providecommand{\PathSO}{./sources/} % Path to Sources folders
+\providecommand{\PathS}{./supplies/} % Path to Supplies folders
+\providecommand{\lang}{english}	% english, french
+\providecommand{\BuildTrigger}{buildnew} % Trigger to build or not standalone parts.
+
+\makeatletter
+	\ifx\c@levelstanda\undefined % to create a new-counter if it doesn't exists.
+		\newcounter{levelstanda}
+		\def\input@path{ {\PathSO}{./another-directory/} } % to be able to find package in source folders.
+	\else
+		{}% it already exist
+	\fi
+\makeatother
+
+
+%%%%---- DOCUMENT-CLASS -------------------------%%%%
+\documentclass[a4paper]{article}  % or another class
+	\usepackage[l2tabu, orthodox]{nag}	% Helps to correct the script
+
+%%%%---- OS & FONT -------------------------%%%%
+	\usepackage[utf8]{inputenc} % Input keyboard encoding: latin1=windows, utf8=linux, applemac=Mac
+	\usepackage[T1]{fontenc} 	% Output font encoding: T1 for Europeans languages.
+
+%%%%---- PERSONAL Custom ----------------------%%%%
+	\newcommand{\Pathbasebib}{\PathR/ref_RN.bib,\PathR/ref_XX.bib}% Careful no space!
+	\newcommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms.bib}
+	\input{\PathR/UsersPackagesDefs.tex}
+	\input{\PathR/UsersMathsCommands.tex}
+		\geometry{margin=2.5cm}
+
+%%%%%---- JOURNAL SPECS -------------------------%%%%
+	%\journal{Journal of XX}
+	\title{My Empty Part}
+	\author{Romain \famName{Noël}}
+	\date{\today}
+
+
+%%%%%%%%%%%%%%%  MAIN DOCUMENT  %%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\stepcounter{levelstanda}
+
+%% FRONTMATTER
+\ifnum\value{levelstanda}>1
+	{}% Not in the main.
+\else
+	\maketitle
+\fi
+
+
+%% MAINMATTER
+\section{Toto}
+	Something after.
+
+
+%% BACK-MATTER
+%\appendix
+\ifnum\value{levelstanda}>1
+	{}% Not in the main.
+\else
+	% References
+	\bibliography{\Pathbasebib} % for bibtex or natbib
+	%\printbibliography     % for biblatex
+
+	%%% To comment for the final version
+	%\tableofcontents
+	\printunsrtglossary[type=acronym]
+	\printunsrtglossary[type=symbol]
+\fi
+
+\addtocounter{levelstanda}{-1}
+\end{document}
+%EoF

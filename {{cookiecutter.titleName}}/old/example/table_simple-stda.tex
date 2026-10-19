@@ -1,0 +1,63 @@
+\documentclass[12pt]{standalone} 
+    \usepackage[T1]{fontenc}
+    
+    \providecommand{\PathR}{../../resources}  % Path to Supplies and Ressources folders
+    \providecommand{\PathS}{../}
+    \providecommand{\BuildTrigger}{buildnew} % Trigger to build or not
+    
+    \makeatletter							% to be able to find package in ressource folders.
+    	\def\input@path{ {\PathR} }
+    	\ifx\c@levelstanda\undefined 	% to create a newcounter if it doesnt exists.
+    		\newcounter{levelstanda}
+    	\else	
+    		{}% it already exist
+    	\fi
+    \makeatother
+
+    \usepackage{tabularray,siunitx,xcolor}
+      \UseTblrLibrary{siunitx} % for cell using SI formatting
+      \sisetup{inter-unit-product = \ensuremath { \cdot } }
+   %  \usepackage[l3]{csvsimple}
+        
+    \newcommand{\famName}[1]{\textsc{{"{"}}#1{{"}"}}}
+    
+    \providecommand{\PathSymbolsEntries}{\PathR/UsersSymbolsAcronyms}%.bib
+    \usepackage[record, automake]{glossaries-extra}
+    	\newglossary*{acronym}{Abbreviations}
+    	\newglossary*{symbol}{Nomenclature}
+    	% new keys must be defined before \GlsXtrLoadResources
+    	\glsaddstoragekey{unit}{}{\glsentryunit}
+    	% define style of the abbreviation in the text
+    	\setabbreviationstyle[acronym]{long-short}
+    	\setabbreviationstyle[foreignabbreviation]{long-short-user}
+    	\GlsXtrLoadResources[
+    		src={\PathSymbolsEntries}, % entries in symbols.bib
+    		entry-type-aliases={foreignabbreviation=abbreviation},
+    		type=symbol,
+    		match={entrytype=symbol},
+    		symbol-sort-fallback=name,% sort @symbol entries by name field
+    		identical-sort-action=description,% sort by description if sort value identical
+    	]
+
+{% raw %}
+\begin{document}
+\stepcounter{levelstanda}
+\renewcommand{\arraystretch}{0}
+\begin{tabular}{@{}p{0.97\linewidth}@{}}% \@{} is to remove the margin of the cells
+   \centering
+   \begin{tblr}{
+      colspec={S[table-format=3.2]S[table-format=3.2]},
+      row{odd} = {blue!85!gray!7},
+      row{1} = {blue!50!gray!25, font=\bfseries, preto=\MakeUppercase},
+      hline{1,Z} = {0.1em, blue!50!black},
+      hline{2} = {blue!50!black},
+   }
+      {{{Head}}} & {{{Head}}} \\
+      111 & 111 \\
+      2.1 & 2.2 \\
+      33.11 & 33.22 \\
+   \end{tblr}
+\end{tabular}
+\addtocounter{levelstanda}{-1}
+\end{document}
+{% endraw %}
